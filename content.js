@@ -7,9 +7,36 @@ const removeAnalyzeButton = () => {
     }
 }
 
+const createSideAnalysis = () => {
+    if (document.getElementById('side-analysis')) return;
+
+    const sideAnalysis = document.createElement('div')
+    sideAnalysis.id = 'side-analysis'
+    sideAnalysis.className = 'side-analysis';
+    sideAnalysis.innerHTML = `
+        <h2>Verified Sources</h2>
+        <ul>
+            <li><a href="#">link1</a></li>
+            <li><a href="#">link2</a></li>
+            <li><a href="#">link3</a></li>
+        </ul>
+        <br>
+        <h2>Community Summary</h2>
+        <p>The quick brown fox jumps over the lazy dog</p>
+        <br>
+        <h2>USER INPUT</h2>
+        <form action="">
+            <label for="opinion">What do you think?:</label>
+            <input type="text" id="opinion" name="opinion">
+        </form>
+    `;
+    document.body.appendChild(sideAnalysis);
+}
+
 document.addEventListener('mouseup', (event) => {
     if (analyzeButton && analyzeButton.contains(event.target)) {
-        return; // clicked on the button itself, do nothing
+        createSideAnalysis();
+        return; // clicked on the button itself, return nothing
     }
     removeAnalyzeButton(); // remove old button
 

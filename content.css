@@ -12,3 +12,16 @@
 .analyze-button:hover {
     background-color: #000000;
 }
+
+.side-analysis {
+    background-color: #66751e;
+    position: fixed;
+    top: 20px; 
+    right: 20px;
+    width: 380px; 
+    height: 90vh;
+    overflow-y: auto;
+    z-index: 999999;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
