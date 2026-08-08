@@ -1,4 +1,5 @@
 let analyzeButton = null;
+let sidePanel = null;
 
 const removeAnalyzeButton = () => {
     if (analyzeButton) {
@@ -7,36 +8,43 @@ const removeAnalyzeButton = () => {
     }
 }
 
-const createSideAnalysis = () => {
-    if (document.getElementById('side-analysis')) return;
+const removeSidePanel = () => {
+    if (sidePanel) {
+        sidePanel.remove();
+        sidePanel = null;
+    }
+}
+const createSidePanel = () => {
+    if (sidePanel) return;
 
-    const sideAnalysis = document.createElement('div')
-    sideAnalysis.id = 'side-analysis'
-    sideAnalysis.className = 'side-analysis';
-    sideAnalysis.innerHTML = `
+    sidePanel = document.createElement('div')
+    sidePanel.id = 'side-panel'
+    sidePanel.className = 'side-panel';
+    sidePanel.innerHTML = `
         <h2>Verified Sources</h2>
         <ul>
-            <li><a href="#">link1</a></li>
-            <li><a href="#">link2</a></li>
-            <li><a href="#">link3</a></li>
+            <li><a href="#">brainly</a></li>
+            <li><a href="#">source:sogon</a></li>
+            <li><a href="#">aimfreak</a></li>
         </ul>
         <br>
         <h2>Community Summary</h2>
-        <p>The quick brown fox jumps over the lazy dog</p>
+        <p>Verdict: False</p>
+        <p>This statement is false, the author is spreading misinformation"
         <br>
         <h2>USER INPUT</h2>
         <form action="">
             <label for="opinion">What do you think?:</label>
             <input type="text" id="opinion" name="opinion">
+            <input type="submit" value="Submit">
         </form>
     `;
-    document.body.appendChild(sideAnalysis);
+    document.body.appendChild(sidePanel);
 }
 
 document.addEventListener('mouseup', (event) => {
     if (analyzeButton && analyzeButton.contains(event.target)) {
-        createSideAnalysis();
-        return; // clicked on the button itself, return nothing
+        return;
     }
     removeAnalyzeButton(); // remove old button
 
@@ -59,14 +67,17 @@ document.addEventListener('mouseup', (event) => {
 
     analyzeButton.addEventListener('mousedown', (event) => {
         event.preventDefault();
-        // button clicked, handle panel opening logic here
+        createSidePanel(); // button clicked, handle panel opening logic here
         removeAnalyzeButton();
     });
     document.body.appendChild(analyzeButton);
 });
 
 document.addEventListener('mousedown', (event) => {
-    if (analyzeButton && !analyzeButton.contains(event.target)) {
+    const isClickNotButton = analyzeButton && !analyzeButton.contains(event.target);
+    const isClickOutsidePanel = sidePanel && !sidePanel.contains(event.target);
+    if (isClickNotButton && isClickOutsidePanel) {
+        removeSidePanel(); // clicked outside the button, remove it
         removeAnalyzeButton(); // clicked outside the button, remove it
     }
 });

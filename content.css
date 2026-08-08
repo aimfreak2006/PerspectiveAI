@@ -13,8 +13,9 @@
     background-color: #000000;
 }
 
-.side-analysis {
-    background-color: #66751e;
+.side-panel {
+    background-color: #566965;
+    color: rgb(243, 186, 186);
     position: fixed;
     top: 20px; 
     right: 20px;
